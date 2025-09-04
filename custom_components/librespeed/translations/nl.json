@@ -1,0 +1,202 @@
+{
+  "title": "LibreSpeed",
+  "config": {
+    "step": {
+      "user": {
+        "title": "LibreSpeed Configureren",
+        "description": "Stel LibreSpeed-integratie in voor netwerksnelheidstesten. Deze integratie zal uw internetverbindingssnelheid met regelmatige tussenpozen monitoren.",
+        "data": {
+          "backend_type": "Backend Type",
+          "server_selection": "Serverselectie",
+          "custom_server": "Aangepaste Server URL",
+          "auto_update": "Automatische Snelheidstesten Inschakelen",
+          "scan_interval": "Testinterval (minuten)",
+          "test_timeout": "Test Timeout (seconden)"
+        },
+        "data_description": {
+          "backend_type": "Kies tussen Native Python (standaard) of Officiële CLI voor betere prestaties op hogesnelheidsverbindingen",
+          "server_selection": "Selecteer 'Automatisch' voor de beste server, kies een specifieke server, of 'Aangepast' voor uw eigen",
+          "auto_update": "Indien ingeschakeld, worden snelheidstesten automatisch uitgevoerd op het opgegeven interval",
+          "scan_interval": "Hoe vaak automatische snelheidstesten uit te voeren (minimaal 30 minuten)",
+          "test_timeout": "Maximale tijd toegestaan voor een enkele snelheidstest om te voltooien (60-600 seconden)"
+        }
+      },
+      "custom_server": {
+        "title": "Aangepaste Serverconfiguratie",
+        "description": "Voer de URL van uw aangepaste LibreSpeed-server in. Voorbeeld: {example}",
+        "data": {
+          "custom_server": "Server URL",
+          "skip_cert_verify": "Verlopen of zelfondertekende SSL-certificaten toestaan"
+        },
+        "data_description": {
+          "custom_server": "Volledige URL naar uw LibreSpeed-server (moet HTTPS zijn tenzij certificaatverificatie is uitgeschakeld)",
+          "skip_cert_verify": "Schakel dit in als uw server een zelfondertekend certificaat gebruikt of als u SSL-problemen heeft"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken met LibreSpeed-server",
+      "invalid_server": "Ongeldige serverselectie",
+      "custom_server_required": "Aangepaste server URL is vereist",
+      "invalid_url": "Ongeldig URL-formaat",
+      "ssl_error": "SSL-certificaatverificatie mislukt",
+      "timeout": "Verbinding time-out",
+      "unknown": "Onverwachte fout opgetreden"
+    },
+    "abort": {
+      "already_configured": "LibreSpeed is al geconfigureerd",
+      "cannot_download_cli": "Kan LibreSpeed CLI niet downloaden",
+      "unsupported_platform": "Platform niet ondersteund voor CLI-backend"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "LibreSpeed Opties",
+        "description": "Wijzig LibreSpeed-integratie-instellingen. Wijzigingen worden van kracht bij de volgende snelheidstest.",
+        "data": {
+          "backend_type": "Backend Type",
+          "server_selection": "Serverselectie",
+          "custom_server": "Aangepaste Server URL",
+          "auto_update": "Automatische Snelheidstesten Inschakelen",
+          "scan_interval": "Testinterval (minuten)",
+          "test_timeout": "Test Timeout (seconden)"
+        },
+        "data_description": {
+          "backend_type": "CLI-backend aanbevolen voor verbindingen boven 500 Mbps",
+          "server_selection": "Wijzig de server gebruikt voor snelheidstesten",
+          "auto_update": "Schakel automatische geplande testen in of uit",
+          "scan_interval": "Pas aan hoe vaak testen worden uitgevoerd (in minuten)",
+          "test_timeout": "Maximale tijd toegestaan voor een enkele snelheidstest (60-600 seconden)"
+        }
+      },
+      "custom_server": {
+        "title": "Aangepaste Serverconfiguratie",
+        "description": "Configureer uw aangepaste LibreSpeed-server. Voorbeeld: {example}",
+        "data": {
+          "custom_server": "Server URL",
+          "skip_cert_verify": "Verlopen of zelfondertekende SSL-certificaten toestaan"
+        }
+      }
+    },
+    "error": {
+      "invalid_server": "Ongeldige serverselectie",
+      "custom_server_required": "Aangepaste server URL is vereist",
+      "invalid_url": "Ongeldig URL-formaat"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "download": {
+        "name": "Downloadsnelheid"
+      },
+      "upload": {
+        "name": "Uploadsnelheid"
+      },
+      "ping": {
+        "name": "Ping"
+      },
+      "jitter": {
+        "name": "Jitter"
+      },
+      "packet_loss": {
+        "name": "Pakketverlies"
+      },
+      "data_downloaded": {
+        "name": "Testdata Gedownload"
+      },
+      "data_uploaded": {
+        "name": "Testdata Geüpload"
+      },
+      "lifetime_download": {
+        "name": "Levenslange Data Gedownload"
+      },
+      "lifetime_upload": {
+        "name": "Levenslange Data Geüpload"
+      },
+      "server_name": {
+        "name": "Servernaam"
+      },
+      "server_location": {
+        "name": "Serverlocatie"
+      },
+      "server_sponsor": {
+        "name": "Serversponsor"
+      },
+      "last_test": {
+        "name": "Laatste Testtijd"
+      }
+    },
+    "button": {
+      "run_test": {
+        "name": "Handmatige Snelheidstest"
+      }
+    },
+    "binary_sensor": {
+      "running": {
+        "name": "Snelheidstest Actief"
+      }
+    }
+  },
+  "services": {
+    "run_speed_test": {
+      "name": "Snelheidstest Uitvoeren",
+      "description": "Handmatig een snelheidstest activeren op een specifieke LibreSpeed-instantie",
+      "fields": {
+        "entry_id": {
+          "name": "Configuratie-invoer",
+          "description": "De LibreSpeed-instantie om de test op uit te voeren (optioneel, gebruikt eerste instantie indien niet opgegeven)"
+        },
+        "server_id": {
+          "name": "Server ID",
+          "description": "Optioneel: Specifieke server-ID om te gebruiken voor deze test (overschrijft geconfigureerde server)"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "speed_test_in_progress": "Snelheidstest al bezig",
+    "speed_test_failed": "Snelheidstest mislukt: {error}",
+    "server_not_found": "Server niet gevonden",
+    "network_error": "Netwerkfout: {error}",
+    "timeout_error": "Snelheidstest time-out na {timeout} seconden",
+    "cli_not_available": "LibreSpeed CLI is niet beschikbaar",
+    "cli_download_failed": "Kan CLI-binair niet downloaden",
+    "invalid_configuration": "Ongeldige configuratie",
+    "circuit_breaker_open": "Te veel opeenvolgende fouten, stroomonderbreker is open",
+    "session_creation_failed": "Kan HTTP-sessie niet maken",
+    "checksum_mismatch": "Checksum van gedownload bestand komt niet overeen met verwachte waarde"
+  },
+  "issues": {
+    "cli_download_failed": {
+      "title": "LibreSpeed CLI Download Mislukt",
+      "description": "Het LibreSpeed CLI-binair kon niet automatisch worden gedownload. Dit kan zijn door netwerkverbindingsproblemen of firewallbeperkingen.\n\nU kunt:\n• Opnieuw proberen te downloaden via de reparatiestroom\n• Overschakelen naar Native Python-backend in opties\n• Uw internetverbinding controleren\n\nDe CLI-backend biedt betere prestaties voor hogesnelheidsverbindingen (>500 Mbps)."
+    },
+    "custom_server_unreachable": {
+      "title": "Aangepaste LibreSpeed-server Onbereikbaar",
+      "description": "Uw aangepaste LibreSpeed-server op {server_url} is momenteel onbereikbaar. Dit kan zijn door:\n\n• Server is tijdelijk offline\n• Netwerkverbindingsproblemen\n• Onjuiste server-URL\n• SSL-certificaatproblemen\n\nOm dit probleem op te lossen, ga naar {options_path} en:\n• Werk de server-URL bij\n• Controleer SSL-certificaatinstellingen\n• Schakel over naar automatische serverselectie"
+    },
+    "repeated_test_failures": {
+      "title": "LibreSpeed-testen Falen Herhaaldelijk",
+      "description": "Snelheidstesten zijn {failure_count} keer achter elkaar mislukt. Dit kan wijzen op:\n\n• Netwerkverbindingsproblemen\n• Servercompatibiliteitsproblemen\n• Backend-prestatieproblemen\n\nAanbevolen oplossingen:\n• {backend_switch}\n• Probeer automatische serverselectie\n• Controleer uw internetverbinding\n• Bekijk Home Assistant-logs voor details"
+    },
+    "circuit_breaker_open": {
+      "title": "LibreSpeed Stroomonderbreker Geactiveerd",
+      "description": "Snelheidstesten zijn tijdelijk uitgeschakeld na {failure_count} opeenvolgende fouten om systeemoverbelasting te voorkomen.\n\n{manual_test}\n\nOm op te lossen:\n• Controleer uw netwerkverbinding\n• Verifieer serverbeschikbaarheid\n• Bekijk foutenlogboeken voor specifieke problemen\n• Overweeg van backend te wisselen"
+    }
+  },
+  "selector": {
+    "backend_type": {
+      "options": {
+        "native": "Native Python",
+        "cli": "Officiële CLI"
+      }
+    },
+    "server_selection": {
+      "options": {
+        "automatic": "Automatisch",
+        "custom": "Aangepaste Server"
+      }
+    }
+  }
+}

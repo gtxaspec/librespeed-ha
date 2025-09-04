@@ -1,0 +1,224 @@
+{
+  "title": "LibreSpeed",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure LibreSpeed",
+        "description": "Set up LibreSpeed integration for network speed testing. This integration will monitor your internet connection speed at regular intervals.",
+        "data": {
+          "backend_type": "Backend Type",
+          "server_selection": "Server Selection",
+          "custom_server": "Custom Server URL",
+          "auto_update": "Enable Automatic Speed Tests",
+          "scan_interval": "Test Interval (minutes)",
+          "test_timeout": "Test Timeout (seconds)"
+        },
+        "data_description": {
+          "backend_type": "Choose between Native Python (default) or Official CLI for better performance on high-speed connections",
+          "server_selection": "Select 'Automatic' to use the best server, choose a specific server, or 'Custom' to use your own",
+          "auto_update": "When enabled, speed tests will run automatically at the specified interval",
+          "scan_interval": "How often to run automatic speed tests (minimum 30 minutes)",
+          "test_timeout": "Maximum time allowed for a single speed test to complete (60-600 seconds)"
+        }
+      },
+      "custom_server": {
+        "title": "Custom Server Configuration",
+        "description": "Enter the URL of your custom LibreSpeed server. Example: {example}",
+        "data": {
+          "custom_server": "Server URL",
+          "skip_cert_verify": "Allow expired or self-signed SSL certificates"
+        },
+        "data_description": {
+          "custom_server": "Full URL to your LibreSpeed server (must be HTTPS unless certificate verification is disabled)",
+          "skip_cert_verify": "Enable this if your server uses a self-signed certificate or if you're having SSL issues"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to LibreSpeed server",
+      "invalid_server": "Invalid server selection",
+      "custom_server_required": "Custom server URL is required",
+      "invalid_url": "Invalid URL format",
+      "ssl_error": "SSL certificate verification failed",
+      "timeout": "Connection timed out",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "LibreSpeed is already configured",
+      "cannot_download_cli": "Failed to download LibreSpeed CLI",
+      "unsupported_platform": "Platform not supported for CLI backend"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "LibreSpeed Options",
+        "description": "Modify LibreSpeed integration settings. Changes will take effect on the next speed test.",
+        "data": {
+          "backend_type": "Backend Type",
+          "server_selection": "Server Selection",
+          "custom_server": "Custom Server URL",
+          "auto_update": "Enable Automatic Speed Tests",
+          "scan_interval": "Test Interval (minutes)",
+          "test_timeout": "Test Timeout (seconds)"
+        },
+        "data_description": {
+          "backend_type": "CLI backend recommended for connections over 500 Mbps",
+          "server_selection": "Change the server used for speed tests",
+          "auto_update": "Enable or disable automatic scheduled tests",
+          "scan_interval": "Adjust how often tests run (in minutes)",
+          "test_timeout": "Maximum time allowed for a single speed test (60-600 seconds)"
+        }
+      },
+      "custom_server": {
+        "title": "Custom Server Configuration",
+        "description": "Configure your custom LibreSpeed server. Example: {example}",
+        "data": {
+          "custom_server": "Server URL",
+          "skip_cert_verify": "Allow expired or self-signed SSL certificates"
+        }
+      }
+    },
+    "error": {
+      "invalid_server": "Invalid server selection",
+      "custom_server_required": "Custom server URL is required",
+      "invalid_url": "Invalid URL format"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "download": {
+        "name": "Download Speed"
+      },
+      "upload": {
+        "name": "Upload Speed"
+      },
+      "ping": {
+        "name": "Ping"
+      },
+      "jitter": {
+        "name": "Jitter"
+      },
+      "packet_loss": {
+        "name": "Packet Loss"
+      },
+      "data_downloaded": {
+        "name": "Test Data Downloaded"
+      },
+      "data_uploaded": {
+        "name": "Test Data Uploaded"
+      },
+      "lifetime_download": {
+        "name": "Lifetime Data Downloaded"
+      },
+      "lifetime_upload": {
+        "name": "Lifetime Data Uploaded"
+      },
+      "server_name": {
+        "name": "Server Name"
+      },
+      "server_location": {
+        "name": "Server Location"
+      },
+      "server_sponsor": {
+        "name": "Server Sponsor"
+      },
+      "last_test": {
+        "name": "Last Test Time"
+      }
+    },
+    "button": {
+      "run_test": {
+        "name": "Manual Speed Test"
+      }
+    },
+    "binary_sensor": {
+      "running": {
+        "name": "Speed Test Running"
+      }
+    }
+  },
+  "services": {
+    "run_speed_test": {
+      "name": "Run Speed Test",
+      "description": "Manually trigger a speed test on a specific LibreSpeed instance",
+      "fields": {
+        "entry_id": {
+          "name": "Configuration Entry",
+          "description": "The LibreSpeed instance to run the test on (optional, uses first instance if not specified)"
+        },
+        "server_id": {
+          "name": "Server ID",
+          "description": "Optional: Specific server ID to use for this test (overrides configured server)"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "speed_test_in_progress": {
+      "message": "Speed test already in progress"
+    },
+    "speed_test_failed": {
+      "message": "Speed test failed: {error}"
+    },
+    "server_not_found": {
+      "message": "Server not found"
+    },
+    "network_error": {
+      "message": "Network error: {error}"
+    },
+    "timeout_error": {
+      "message": "Speed test timed out after {timeout} seconds"
+    },
+    "cli_not_available": {
+      "message": "LibreSpeed CLI is not available"
+    },
+    "cli_download_failed": {
+      "message": "Failed to download CLI binary"
+    },
+    "invalid_configuration": {
+      "message": "Invalid configuration"
+    },
+    "circuit_breaker_open": {
+      "message": "Too many consecutive failures, circuit breaker is open"
+    },
+    "session_creation_failed": {
+      "message": "Failed to create HTTP session"
+    },
+    "checksum_mismatch": {
+      "message": "Downloaded file checksum doesn't match expected value"
+    }
+  },
+  "issues": {
+    "cli_download_failed": {
+      "title": "LibreSpeed CLI Download Failed",
+      "description": "The LibreSpeed CLI binary could not be downloaded automatically. This may be due to network connectivity issues or firewall restrictions.\n\nYou can:\n• Try downloading again using the repair flow\n• Switch to Native Python backend in options\n• Check your internet connection\n\nThe CLI backend provides better performance for high-speed connections (>500 Mbps)."
+    },
+    "custom_server_unreachable": {
+      "title": "Custom LibreSpeed Server Unreachable",
+      "description": "Your custom LibreSpeed server at {server_url} is currently unreachable. This could be due to:\n\n• Server is temporarily down\n• Network connectivity issues\n• Incorrect server URL\n• SSL certificate problems\n\nTo fix this issue, go to {options_path} and:\n• Update the server URL\n• Check SSL certificate settings\n• Switch to automatic server selection"
+    },
+    "repeated_test_failures": {
+      "title": "LibreSpeed Tests Repeatedly Failing",
+      "description": "Speed tests have failed {failure_count} times in a row. This may indicate:\n\n• Network connectivity issues\n• Server compatibility problems\n• Backend performance issues\n\nRecommended solutions:\n• {backend_switch}\n• Try automatic server selection\n• Check your internet connection\n• Review Home Assistant logs for details"
+    },
+    "circuit_breaker_open": {
+      "title": "LibreSpeed Circuit Breaker Activated",
+      "description": "Speed tests have been temporarily disabled after {failure_count} consecutive failures to prevent system overload.\n\n{manual_test}\n\nTo resolve:\n• Check your network connection\n• Verify server availability\n• Review error logs for specific issues\n• Consider switching backends"
+    }
+  },
+  "selector": {
+    "backend_type": {
+      "options": {
+        "native": "Native Python",
+        "cli": "Official CLI"
+      }
+    },
+    "server_selection": {
+      "options": {
+        "automatic": "Automatic",
+        "custom": "Custom Server"
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "entity": {
+    "sensor": {
+      "download": {
+        "default": "mdi:download-network"
+      },
+      "upload": {
+        "default": "mdi:upload-network"
+      },
+      "ping": {
+        "default": "mdi:speedometer"
+      },
+      "jitter": {
+        "default": "mdi:timer-sand"
+      },
+      "data_downloaded": {
+        "default": "mdi:download-box"
+      },
+      "data_uploaded": {
+        "default": "mdi:upload-box"
+      },
+      "server_name": {
+        "default": "mdi:server-network"
+      },
+      "last_test": {
+        "default": "mdi:clock-outline"
+      },
+      "lifetime_download": {
+        "default": "mdi:download-circle"
+      },
+      "lifetime_upload": {
+        "default": "mdi:upload-circle"
+      }
+    },
+    "button": {
+      "run_test": {
+        "default": "mdi:speedometer"
+      }
+    },
+    "binary_sensor": {
+      "running": {
+        "default": "mdi:speedometer"
+      }
+    }
+  },
+  "services": {
+    "run_speed_test": {
+      "service": "mdi:speedometer"
+    }
+  }
+}

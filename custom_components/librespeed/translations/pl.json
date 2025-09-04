@@ -1,0 +1,202 @@
+{
+  "title": "LibreSpeed",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Konfiguruj LibreSpeed",
+        "description": "Skonfiguruj integrację LibreSpeed do testowania prędkości sieci. Ta integracja będzie monitorować prędkość twojego połączenia internetowego w regularnych odstępach czasu.",
+        "data": {
+          "backend_type": "Typ Backendu",
+          "server_selection": "Wybór Serwera",
+          "custom_server": "Niestandardowy URL Serwera",
+          "auto_update": "Włącz Automatyczne Testy Prędkości",
+          "scan_interval": "Interwał Testu (minuty)",
+          "test_timeout": "Limit Czasu Testu (sekundy)"
+        },
+        "data_description": {
+          "backend_type": "Wybierz między Natywnym Python (domyślny) lub Oficjalnym CLI dla lepszej wydajności na szybkich połączeniach",
+          "server_selection": "Wybierz 'Automatycznie' dla najlepszego serwera, wybierz konkretny serwer lub 'Niestandardowy' dla własnego",
+          "auto_update": "Gdy włączone, testy prędkości będą uruchamiane automatycznie w określonym interwale",
+          "scan_interval": "Jak często uruchamiać automatyczne testy prędkości (minimum 30 minut)",
+          "test_timeout": "Maksymalny czas dozwolony na zakończenie pojedynczego testu prędkości (60-600 sekund)"
+        }
+      },
+      "custom_server": {
+        "title": "Konfiguracja Niestandardowego Serwera",
+        "description": "Wprowadź URL twojego niestandardowego serwera LibreSpeed. Przykład: {example}",
+        "data": {
+          "custom_server": "URL Serwera",
+          "skip_cert_verify": "Zezwalaj na wygasłe lub samopodpisane certyfikaty SSL"
+        },
+        "data_description": {
+          "custom_server": "Pełny URL do twojego serwera LibreSpeed (musi być HTTPS chyba że weryfikacja certyfikatu jest wyłączona)",
+          "skip_cert_verify": "Włącz to jeśli twój serwer używa certyfikatu samopodpisanego lub masz problemy z SSL"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nie można połączyć z serwerem LibreSpeed",
+      "invalid_server": "Nieprawidłowy wybór serwera",
+      "custom_server_required": "Wymagany jest niestandardowy URL serwera",
+      "invalid_url": "Nieprawidłowy format URL",
+      "ssl_error": "Weryfikacja certyfikatu SSL nie powiodła się",
+      "timeout": "Przekroczono limit czasu połączenia",
+      "unknown": "Wystąpił nieoczekiwany błąd"
+    },
+    "abort": {
+      "already_configured": "LibreSpeed jest już skonfigurowany",
+      "cannot_download_cli": "Nie udało się pobrać LibreSpeed CLI",
+      "unsupported_platform": "Platforma nieobsługiwana dla backendu CLI"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opcje LibreSpeed",
+        "description": "Modyfikuj ustawienia integracji LibreSpeed. Zmiany zostaną zastosowane przy następnym teście prędkości.",
+        "data": {
+          "backend_type": "Typ Backendu",
+          "server_selection": "Wybór Serwera",
+          "custom_server": "Niestandardowy URL Serwera",
+          "auto_update": "Włącz Automatyczne Testy Prędkości",
+          "scan_interval": "Interwał Testu (minuty)",
+          "test_timeout": "Limit Czasu Testu (sekundy)"
+        },
+        "data_description": {
+          "backend_type": "Backend CLI zalecany dla połączeń powyżej 500 Mbps",
+          "server_selection": "Zmień serwer używany do testów prędkości",
+          "auto_update": "Włącz lub wyłącz automatyczne zaplanowane testy",
+          "scan_interval": "Dostosuj jak często uruchamiane są testy (w minutach)",
+          "test_timeout": "Maksymalny czas dozwolony na pojedynczy test prędkości (60-600 sekund)"
+        }
+      },
+      "custom_server": {
+        "title": "Konfiguracja Niestandardowego Serwera",
+        "description": "Skonfiguruj swój niestandardowy serwer LibreSpeed. Przykład: {example}",
+        "data": {
+          "custom_server": "URL Serwera",
+          "skip_cert_verify": "Zezwalaj na wygasłe lub samopodpisane certyfikaty SSL"
+        }
+      }
+    },
+    "error": {
+      "invalid_server": "Nieprawidłowy wybór serwera",
+      "custom_server_required": "Wymagany jest niestandardowy URL serwera",
+      "invalid_url": "Nieprawidłowy format URL"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "download": {
+        "name": "Prędkość Pobierania"
+      },
+      "upload": {
+        "name": "Prędkość Wysyłania"
+      },
+      "ping": {
+        "name": "Ping"
+      },
+      "jitter": {
+        "name": "Jitter"
+      },
+      "packet_loss": {
+        "name": "Utrata Pakietów"
+      },
+      "data_downloaded": {
+        "name": "Dane Testu Pobrane"
+      },
+      "data_uploaded": {
+        "name": "Dane Testu Wysłane"
+      },
+      "lifetime_download": {
+        "name": "Całkowite Dane Pobrane"
+      },
+      "lifetime_upload": {
+        "name": "Całkowite Dane Wysłane"
+      },
+      "server_name": {
+        "name": "Nazwa Serwera"
+      },
+      "server_location": {
+        "name": "Lokalizacja Serwera"
+      },
+      "server_sponsor": {
+        "name": "Sponsor Serwera"
+      },
+      "last_test": {
+        "name": "Czas Ostatniego Testu"
+      }
+    },
+    "button": {
+      "run_test": {
+        "name": "Ręczny Test Prędkości"
+      }
+    },
+    "binary_sensor": {
+      "running": {
+        "name": "Test Prędkości Uruchomiony"
+      }
+    }
+  },
+  "services": {
+    "run_speed_test": {
+      "name": "Uruchom Test Prędkości",
+      "description": "Ręcznie uruchom test prędkości na określonej instancji LibreSpeed",
+      "fields": {
+        "entry_id": {
+          "name": "Wpis Konfiguracji",
+          "description": "Instancja LibreSpeed na której uruchomić test (opcjonalnie, używa pierwszej instancji jeśli nie określono)"
+        },
+        "server_id": {
+          "name": "ID Serwera",
+          "description": "Opcjonalnie: Konkretny ID serwera do użycia w tym teście (zastępuje skonfigurowany serwer)"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "speed_test_in_progress": "Test prędkości już w toku",
+    "speed_test_failed": "Test prędkości nie powiódł się: {error}",
+    "server_not_found": "Serwer nie znaleziony",
+    "network_error": "Błąd sieci: {error}",
+    "timeout_error": "Test prędkości przekroczył limit czasu po {timeout} sekundach",
+    "cli_not_available": "LibreSpeed CLI niedostępny",
+    "cli_download_failed": "Nie udało się pobrać pliku binarnego CLI",
+    "invalid_configuration": "Nieprawidłowa konfiguracja",
+    "circuit_breaker_open": "Zbyt wiele kolejnych błędów, wyłącznik automatyczny otwarty",
+    "session_creation_failed": "Nie udało się utworzyć sesji HTTP",
+    "checksum_mismatch": "Suma kontrolna pobranego pliku nie pasuje do oczekiwanej wartości"
+  },
+  "issues": {
+    "cli_download_failed": {
+      "title": "Pobieranie LibreSpeed CLI Nie Powiodło Się",
+      "description": "Plik binarny LibreSpeed CLI nie mógł zostać pobrany automatycznie. Może to być spowodowane problemami z połączeniem sieciowym lub ograniczeniami zapory sieciowej.\n\nMożesz:\n• Spróbować pobrać ponownie używając przepływu naprawczego\n• Przełączyć się na backend Natywny Python w opcjach\n• Sprawdzić swoje połączenie internetowe\n\nBackend CLI zapewnia lepszą wydajność dla szybkich połączeń (>500 Mbps)."
+    },
+    "custom_server_unreachable": {
+      "title": "Niestandardowy Serwer LibreSpeed Nieosiągalny",
+      "description": "Twój niestandardowy serwer LibreSpeed pod {server_url} jest obecnie nieosiągalny. Może to być spowodowane:\n\n• Serwer jest tymczasowo wyłączony\n• Problemy z połączeniem sieciowym\n• Nieprawidłowy URL serwera\n• Problemy z certyfikatem SSL\n\nAby rozwiązać ten problem, przejdź do {options_path} i:\n• Zaktualizuj URL serwera\n• Sprawdź ustawienia certyfikatu SSL\n• Przełącz się na automatyczny wybór serwera"
+    },
+    "repeated_test_failures": {
+      "title": "Testy LibreSpeed Wielokrotnie Zawodzą",
+      "description": "Testy prędkości zawiodły {failure_count} razy z rzędu. To może wskazywać na:\n\n• Problemy z połączeniem sieciowym\n• Problemy z kompatybilnością serwera\n• Problemy z wydajnością backendu\n\nZalecane rozwiązania:\n• {backend_switch}\n• Spróbuj automatycznego wyboru serwera\n• Sprawdź swoje połączenie internetowe\n• Przejrzyj logi Home Assistant dla szczegółów"
+    },
+    "circuit_breaker_open": {
+      "title": "Wyłącznik Automatyczny LibreSpeed Aktywowany",
+      "description": "Testy prędkości zostały tymczasowo wyłączone po {failure_count} kolejnych błędach aby zapobiec przeciążeniu systemu.\n\n{manual_test}\n\nAby rozwiązać:\n• Sprawdź swoje połączenie sieciowe\n• Zweryfikuj dostępność serwera\n• Przejrzyj logi błędów dla konkretnych problemów\n• Rozważ zmianę backendu"
+    }
+  },
+  "selector": {
+    "backend_type": {
+      "options": {
+        "native": "Natywny Python",
+        "cli": "Oficjalny CLI"
+      }
+    },
+    "server_selection": {
+      "options": {
+        "automatic": "Automatyczny",
+        "custom": "Niestandardowy Serwer"
+      }
+    }
+  }
+}

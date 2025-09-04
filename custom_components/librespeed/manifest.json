@@ -1,0 +1,13 @@
+{
+  "domain": "librespeed",
+  "name": "LibreSpeed",
+  "codeowners": ["@gtxaspec"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/gtxaspec/librespeed-ha",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/gtxaspec/librespeed-ha/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}
