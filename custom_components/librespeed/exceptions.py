@@ -1,8 +1,11 @@
 """Custom exceptions for LibreSpeed integration."""
+
 from __future__ import annotations
 
+from homeassistant.exceptions import HomeAssistantError
 
-class LibreSpeedError(Exception):
+
+class LibreSpeedError(HomeAssistantError):
     """Base exception for LibreSpeed integration."""
 
 
@@ -15,7 +18,7 @@ class NetworkError(LibreSpeedError):
 
 
 class SpeedTestError(LibreSpeedError):
-    """Base exception for speed test failures."""
+    """Raised when a speed test fails."""
 
 
 class SpeedTestTimeoutError(SpeedTestError):

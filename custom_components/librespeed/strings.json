@@ -99,9 +99,6 @@
       "jitter": {
         "name": "Jitter"
       },
-      "packet_loss": {
-        "name": "Packet Loss"
-      },
       "data_downloaded": {
         "name": "Test Data Downloaded"
       },
@@ -116,12 +113,6 @@
       },
       "server_name": {
         "name": "Server Name"
-      },
-      "server_location": {
-        "name": "Server Location"
-      },
-      "server_sponsor": {
-        "name": "Server Sponsor"
       },
       "last_test": {
         "name": "Last Test Time"

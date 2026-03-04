@@ -1,7 +1,10 @@
 """Diagnostics support for LibreSpeed."""
+
 from __future__ import annotations
 
 import asyncio
+import platform
+import sys
 from typing import Any
 
 import aiohttp
@@ -11,11 +14,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_URL
 from homeassistant.core import HomeAssistant
 
-from .const import (
-    CONF_CUSTOM_SERVER,
-    CONF_SERVER_ID,
-    DOMAIN,
-)
+from .const import CONF_CUSTOM_SERVER
 
 TO_REDACT = {
     CONF_URL,
@@ -32,9 +31,10 @@ async def async_get_config_entry_diagnostics(
 ) -> dict[str, Any]:
     """Return diagnostics for a config entry."""
     from . import LibreSpeedRuntimeData
+
     runtime_data: LibreSpeedRuntimeData = entry.runtime_data
     coordinator = runtime_data.coordinator
-    
+
     # Get the last test results
     last_test_data = None
     if coordinator.data:
@@ -49,7 +49,7 @@ async def async_get_config_entry_diagnostics(
             "bytes_sent": coordinator.data.get("bytes_sent"),
             "bytes_received": coordinator.data.get("bytes_received"),
         }
-    
+
     # Get server list if available
     server_list = []
     try:
@@ -67,20 +67,21 @@ async def async_get_config_entry_diagnostics(
             ]
     except (aiohttp.ClientError, asyncio.TimeoutError, ValueError):
         server_list = "Failed to retrieve server list"
-    
+
     # Check CLI availability if using CLI backend
     cli_info = None
     if coordinator.backend_type == "cli":
         cli_info = {
             "backend": "CLI",
-            "cli_available": hasattr(coordinator.client, "cli_path") and coordinator.client.cli_path is not None,
+            "cli_available": hasattr(coordinator.client, "cli_path")
+            and coordinator.client.cli_path is not None,
             "cli_path": getattr(coordinator.client, "cli_path", None),
         }
     else:
         cli_info = {
             "backend": "Native Python",
         }
-    
+
     diagnostics_data = {
         "entry": {
             "entry_id": entry.entry_id,
@@ -94,18 +95,22 @@ async def async_get_config_entry_diagnostics(
         "coordinator": {
             "backend_type": coordinator.backend_type,
             "auto_update": coordinator.auto_update,
-            "scan_interval": coordinator.update_interval.total_seconds() if coordinator.update_interval else None,
+            "scan_interval": coordinator.update_interval.total_seconds()
+            if coordinator.update_interval
+            else None,
             "is_running": coordinator.is_running,
             "last_update_success": coordinator.last_update_success,
-            "last_exception": str(coordinator.last_exception) if coordinator.last_exception else None,
+            "last_exception": str(coordinator.last_exception)
+            if coordinator.last_exception
+            else None,
         },
         "last_test": last_test_data,
         "cli_info": cli_info,
         "server_list_sample": server_list,
         "platform_info": {
-            "platform": coordinator.hass.config.platform,
-            "python_version": coordinator.hass.config.python_version,
+            "platform": sys.platform,
+            "python_version": platform.python_version(),
         },
     }
-    
+
     return async_redact_data(diagnostics_data, TO_REDACT)

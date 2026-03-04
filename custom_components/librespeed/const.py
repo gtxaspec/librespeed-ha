@@ -1,7 +1,7 @@
 """Constants for the LibreSpeed integration."""
+
 from __future__ import annotations
 
-from datetime import timedelta
 from typing import Final
 
 DOMAIN: Final = "librespeed"
@@ -37,7 +37,9 @@ ATTR_LIFETIME_DOWNLOAD = "lifetime_download"
 ATTR_LIFETIME_UPLOAD = "lifetime_upload"
 
 # Speed test execution constants
-SPEED_TEST_DURATION = 15  # Duration for download/upload tests in seconds (LibreSpeed default)
+SPEED_TEST_DURATION = (
+    15  # Duration for download/upload tests in seconds (LibreSpeed default)
+)
 DEFAULT_CHUNKS = 100  # Default number of chunks for speed tests
 PING_COUNT = 10  # Number of ping measurements to take
 PING_INTERVAL = 0.1  # Delay between ping measurements in seconds
@@ -45,8 +47,12 @@ MAX_CONCURRENT_DOWNLOADS = 6  # Maximum concurrent download streams
 MAX_CONCURRENT_UPLOADS = 3  # Maximum concurrent upload streams
 
 # Circuit breaker thresholds
-CIRCUIT_BREAKER_WARNING_THRESHOLD = 5  # Show warning repair issue after this many failures
-CIRCUIT_BREAKER_OPEN_THRESHOLD = 10  # Circuit breaker opens after this many consecutive failures
+CIRCUIT_BREAKER_WARNING_THRESHOLD = (
+    5  # Show warning repair issue after this many failures
+)
+CIRCUIT_BREAKER_OPEN_THRESHOLD = (
+    10  # Circuit breaker opens after this many consecutive failures
+)
 
 # Network timeouts
 SERVER_LIST_TIMEOUT = 10  # Timeout for fetching server list in seconds
@@ -64,7 +70,9 @@ CONNECTION_POOL_LIMIT = 20  # Total number of connections in the pool
 CONNECTION_POOL_LIMIT_PER_HOST = 15  # Max connections per host
 DNS_CACHE_TTL = 300  # DNS cache time-to-live in seconds (5 minutes)
 KEEPALIVE_TIMEOUT = 30  # TCP keepalive timeout in seconds
-READ_BUFFER_SIZE = 262144  # Read buffer size in bytes (256KB for high-speed connections)
+READ_BUFFER_SIZE = (
+    262144  # Read buffer size in bytes (256KB for high-speed connections)
+)
 
 # HTTP session timeouts
 SESSION_TIMEOUT_TOTAL = 300  # 5 minute total timeout for session
@@ -96,7 +104,7 @@ CUSTOM_SERVER_ERROR_COOLDOWN = 21600  # 6 hours in seconds
 # HTTP status codes
 HTTP_OK = 200  # Success status code
 
-# Process return codes  
+# Process return codes
 PROCESS_SUCCESS = 0  # Successful process execution
 
 # Timing delays

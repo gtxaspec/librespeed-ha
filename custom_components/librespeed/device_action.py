@@ -1,4 +1,5 @@
 """Device actions for LibreSpeed integration."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -8,7 +9,7 @@ import voluptuous as vol
 from homeassistant.components.device_automation import InvalidDeviceAutomationConfig
 from homeassistant.const import CONF_DEVICE_ID, CONF_DOMAIN, CONF_TYPE
 from homeassistant.core import Context, HomeAssistant
-from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers import config_validation as cv, device_registry as dr
 from homeassistant.helpers.typing import ConfigType
 
 from . import LibreSpeedRuntimeData
@@ -47,21 +48,21 @@ async def async_call_action_from_config(
         raise InvalidDeviceAutomationConfig(
             f"Unsupported action type {config[CONF_TYPE]}"
         )
-    
+
     # Find the coordinator for this device
     device_id = config[CONF_DEVICE_ID]
-    
-    # Search through all config entries to find the one for this device
-    for entry_id, entry_data in hass.data.get(DOMAIN, {}).items():
-        if isinstance(entry_data, LibreSpeedRuntimeData):
-            coordinator = entry_data.coordinator
-            # Check if this coordinator's device matches
-            if (DOMAIN, coordinator.config_entry.entry_id) in \
-               hass.data.get("device_registry", {}).get("devices", {}).get(device_id, {}).get("identifiers", set()):
-                # Found the right coordinator, trigger speed test
-                await coordinator.async_run_speedtest()
-                return
-    
+    device_registry = dr.async_get(hass)
+    device_entry = device_registry.async_get(device_id)
+
+    if device_entry:
+        for entry in hass.config_entries.async_entries(DOMAIN):
+            if (DOMAIN, entry.entry_id) in device_entry.identifiers:
+                if hasattr(entry, "runtime_data") and isinstance(
+                    entry.runtime_data, LibreSpeedRuntimeData
+                ):
+                    await entry.runtime_data.coordinator.async_run_speedtest()
+                    return
+
     raise InvalidDeviceAutomationConfig(
         f"Could not find LibreSpeed instance for device {device_id}"
     )
