@@ -16,6 +16,15 @@ LibreSpeed is a free and open-source, self-hosted speed test application. This i
 
 ## Installation
 
+### Via HACS (Recommended)
+
+1. Open HACS in Home Assistant
+2. Go to **Integrations** → **⋮** → **Custom repositories**
+3. Add repository: `https://github.com/gtxaspec/librespeed-ha`
+4. Category: **Integration**
+5. Click **Add** → **Install**
+6. Restart Home Assistant
+
 ### Manual Installation
 
 1. Download or clone this repository
