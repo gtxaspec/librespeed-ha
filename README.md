@@ -48,19 +48,23 @@ For detailed configuration options, see [Configuration Guide](docs/CONFIGURATION
 
 ## Entities
 
-The integration creates the following entities:
+The integration creates the following entities per instance. Entity IDs include the instance name (e.g. `sensor.librespeed_automatic_download_speed` for an instance titled "LibreSpeed (Automatic)").
 
 ### Sensors
-- `sensor.librespeed_download_speed` - Download speed in Mbps
-- `sensor.librespeed_upload_speed` - Upload speed in Mbps  
-- `sensor.librespeed_ping` - Latency in milliseconds
-- `sensor.librespeed_jitter` - Connection jitter (hidden by default)
-- `sensor.librespeed_server_name` - Server used for testing
-- `sensor.librespeed_last_test_time` - Timestamp of last test
+- **Download Speed** - Download speed in Mbps
+- **Upload Speed** - Upload speed in Mbps
+- **Ping** - Latency in milliseconds
+- **Jitter** - Connection jitter in milliseconds
+- **Server Name** - Server used for testing (diagnostic)
+- **Last Test Time** - Timestamp of last test (diagnostic)
+- **Test Data Downloaded** - Data downloaded during last test in MB (diagnostic)
+- **Test Data Uploaded** - Data uploaded during last test in MB (diagnostic)
+- **Lifetime Data Downloaded** - Total data downloaded across all tests in GB (diagnostic)
+- **Lifetime Data Uploaded** - Total data uploaded across all tests in GB (diagnostic)
 
 ### Controls
-- `button.librespeed_run_speed_test` - Manually trigger a speed test
-- `binary_sensor.librespeed_speed_test_running` - Indicates if test is running
+- **Run Speed Test** - Button to manually trigger a speed test
+- **Speed Test Running** - Binary sensor indicating if a test is in progress
 
 ## Basic Usage
 
@@ -69,7 +73,7 @@ Press the "Run Speed Test" button in the UI or use the service:
 ```yaml
 service: button.press
 target:
-  entity_id: button.librespeed_run_speed_test
+  entity_id: button.librespeed_automatic_run_speed_test
 ```
 
 ### Simple Automation
@@ -86,7 +90,7 @@ automation:
     action:
       - service: button.press
         target:
-          entity_id: button.librespeed_run_speed_test
+          entity_id: button.librespeed_automatic_run_speed_test
 ```
 
 ### Dashboard Card
@@ -94,15 +98,17 @@ automation:
 type: entities
 title: Internet Speed
 entities:
-  - entity: sensor.librespeed_download_speed
+  - entity: sensor.librespeed_automatic_download_speed
     name: Download
-  - entity: sensor.librespeed_upload_speed
+  - entity: sensor.librespeed_automatic_upload_speed
     name: Upload
-  - entity: sensor.librespeed_ping
+  - entity: sensor.librespeed_automatic_ping
     name: Latency
-  - entity: button.librespeed_run_speed_test
+  - entity: button.librespeed_automatic_run_speed_test
     name: Run Test
 ```
+
+> **Note:** Replace `automatic` with your instance name slug if you chose a specific server or custom title.
 
 ## Documentation
 
