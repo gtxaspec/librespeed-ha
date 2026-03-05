@@ -57,8 +57,7 @@ class LibreSpeedDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         auto_update: bool,
         skip_cert_verify: bool = False,
         backend_type: str = "native",
-        entry_id: str | None = None,
-        entry_title: str | None = None,
+        config_entry: ConfigEntry | None = None,
         test_timeout: int = DEFAULT_TEST_TIMEOUT,
     ) -> None:
         """Initialize the coordinator.
@@ -72,8 +71,7 @@ class LibreSpeedDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             auto_update: Whether to run automatic tests.
             skip_cert_verify: Whether to skip SSL certificate verification.
             backend_type: Type of backend ("native" or "cli").
-            entry_id: Config entry ID for unique storage.
-            entry_title: Config entry title for logging.
+            config_entry: Config entry for this integration instance.
             test_timeout: Maximum time allowed for a speed test in seconds.
         """
         self.client: LibreSpeedClient | LibreSpeedCLI = client
@@ -82,9 +80,8 @@ class LibreSpeedDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.auto_update: bool = auto_update
         self.skip_cert_verify: bool = skip_cert_verify
         self.backend_type: str = backend_type
-        self.entry_title: str = entry_title or "LibreSpeed"
+        self.entry_title: str = config_entry.title if config_entry else "LibreSpeed"
         self.test_timeout: int = test_timeout
-        self.config_entry: ConfigEntry | None = None  # Will be set after initialization
         self.is_running: bool = False
         self.is_waiting: bool = False  # Track if waiting for global lock
         self.lifetime_download: float = 0.0  # GB - will be loaded from storage
@@ -95,6 +92,7 @@ class LibreSpeedDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         )  # Local lock (kept for compatibility)
         self._global_lock: asyncio.Lock = hass.data[DOMAIN]["test_lock"]  # Global lock
         # Use entry_id for unique storage key per instance
+        entry_id = config_entry.entry_id if config_entry else None
         storage_key = (
             f"{DOMAIN}_lifetime_data_{entry_id}"
             if entry_id
@@ -116,6 +114,7 @@ class LibreSpeedDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             _LOGGER,
             name=DOMAIN,
             update_interval=update_interval,
+            config_entry=config_entry,
         )
 
     @property

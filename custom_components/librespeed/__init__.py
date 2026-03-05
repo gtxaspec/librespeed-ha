@@ -202,15 +202,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             get_config_value(entry, CONF_AUTO_UPDATE, True),
             get_config_value(entry, CONF_SKIP_CERT_VERIFY, False),
             backend_type,
-            entry.entry_id,  # Pass entry ID for unique storage
-            entry.title,  # Pass title for logging
-            get_config_value(
+            config_entry=entry,
+            test_timeout=get_config_value(
                 entry, CONF_TEST_TIMEOUT, DEFAULT_TEST_TIMEOUT
-            ),  # Pass test timeout
+            ),
         )
-
-        # Set the config entry reference
-        coordinator.config_entry = entry
 
         # Load stored data BEFORE setting up platforms so sensors have data
         await coordinator.async_load_lifetime_data()

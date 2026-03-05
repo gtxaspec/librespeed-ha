@@ -65,10 +65,6 @@ class LibreSpeedButton(LibreSpeedBaseEntity, ButtonEntity):
         """Return extra state attributes."""
         if self.coordinator.is_running:
             status = "Running test"
-        elif self.coordinator.is_waiting:
-            status = "Waiting in queue"
-        elif self.coordinator.global_lock.locked():
-            status = "Another instance testing"
         else:
             status = "Ready"
 
