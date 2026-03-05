@@ -7,8 +7,8 @@ rules:
   brands: done
   common-modules: done
   config-flow-test-coverage:
-    status: todo
-    comment: No tests written yet
+    status: done
+    comment: 97% coverage on config_flow.py
   config-flow: done
   dependency-transparency: done
   docs-actions:
@@ -42,8 +42,8 @@ rules:
     status: exempt
     comment: No authentication required
   test-coverage:
-    status: todo
-    comment: No tests written yet
+    status: done
+    comment: 202 tests, 73% overall (90%+ on integration code, lower on backend clients)
 
   # Gold Tier
   devices: done
